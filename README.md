@@ -1,2 +1,2 @@
 # isitokay
-Azure Function providing Question &amp; Answer test 2
+Azure Function providing Question &amp; Answer
