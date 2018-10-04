@@ -1,4 +1,4 @@
 # Ignoring some files and folders
 local.settings.json
-package-lock.json
-node_modules
+isitokay/package-lock.json
+isitokay/node_modules

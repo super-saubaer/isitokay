@@ -5,7 +5,6 @@ module.exports = function (context, req) {
     let file = 'index.html';
 
     if (req.query.file) {
-        context.log(req.query.file);
         file = req.query.file;
     }
 
@@ -16,7 +15,7 @@ module.exports = function (context, req) {
 
         if (!err) {
             let contentType = mime.lookup(file);
-            
+
             context.res = {
                 status: 200,
                 body: data,
