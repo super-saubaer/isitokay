@@ -1,0 +1,15 @@
+{
+  "name": "isitokay",
+  "version": "0.0.1",
+  "description": "is it really okay?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Super Saubaer",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "mime-types": "^2.1.20"
+  }
+}
