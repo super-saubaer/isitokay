@@ -17,8 +17,8 @@
     <div id="question-container" class="jumbotron jumbotron-fluid bg-warning">
         <div class="container">
             <!--
-                <h1 class="display-4 text-dark font-weight-normal">weirdquestion.io</h1>
-            -->
+                    <h1 class="display-4 text-dark font-weight-normal">weirdquestion.io</h1>
+                -->
             <h1 class="display-4 text-dark font-weight-normal">You have a weird question?</h1>
             <hr class="my-4">
             <h1 class="display-4 text-dark font-weight-normal">Good. Go ahead &amp; answer it!</h1>
@@ -29,11 +29,40 @@
         <form>
             <div class="form-group">
                 <label for="formQuestion">My Question</label>
-                <input type="text" class="form-control" id="formQuestion" aria-describedby="emailHelp" placeholder="Is it okay to drink beer befor noon?">
+                <input type="text" class="form-control" id="formQuestion" aria-describedby="emailHelp" placeholder="Is it okay to drink beer befor now?">
             </div>
             <div class="form-group">
-                <label for="formAnswer">My Answer</label>
-                <input type="text" class="form-control" id="formAnswer" placeholder="No. But Spritz Sélect!">
+                <label for="formAnswer">My Answer(s)</label>
+                <div class="input-group">
+                    <input id="formAnswer" type="text" class="form-control" placeholder="No. But Spritz Sélect at anytime!"
+                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-warning text-dark" type="button">+</button>
+                        <button class="btn btn-outline-warning text-dark" type="button">Time</button>
+                    </div>
+                </div>
+                <p></p>
+                
+                <div class="input-group">
+                    <input id="formAnswer" type="text" class="form-control" placeholder="No. But Spritz Sélect!"
+                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-warning text-dark" type="button">+</button>
+                        <button class="btn btn-outline-warning text-dark" type="button">Time</button>
+                    </div>
+                </div>
+
+                <!--
+
+    <div class="input-group mb-3">
+        <input id="formAnswer" type="text" class="form-control" placeholder="No. But Spritz Sélect!"
+        aria-describedby="basic-addon1">
+        <div class="input-group-btn">
+            <button class="btn btn-warning text-dark" type="button">PLUS</button>
+            <button class="btn btn-warning text-dark" type="button">TIME</button>
+        </div>
+    </div>
+-->
             </div>
             <hr class="my-4">
             <button type="button" id="formButton" class="btn btn-warning">Generate Link</button>
