@@ -23,7 +23,6 @@ exports.serveStaticFile = function (context, fileName) {
                 respond.respondWithError(context).then(function() {
                     fulfill();
                 });
-                // reject(exception);
             });
         } catch (exception) {
             context.log(exception);
@@ -31,17 +30,5 @@ exports.serveStaticFile = function (context, fileName) {
                 fulfill();
             });
         }
-
-
-        // let contentType = mime.lookup(file);
-
-        // context.res = {
-        //     status: 200,
-        //     body: data,
-        //     isRaw: true,
-        //     headers: {
-        //         'Content-Type': contentType,
-        //     },
-        // };
     });
 };

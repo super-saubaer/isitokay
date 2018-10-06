@@ -28,15 +28,12 @@ $(document).ready(function () {
             dataModel.question = $('#formQuestion').val();
             dataModel.answers.push($('#formAnswer').val());
             console.log('Sending data: ' + JSON.stringify(dataModel));
+            let url = window.location + '?generate';
+            console.log(url);
 
-            $.post(window.location + '?generate', dataModel, function(result) {
-                console.log(result);
+            $.post(url, JSON.stringify(dataModel), function(result) {
+                console.log(decodeURIComponent(result));
             });
         }
     });
-
-
-    function linkCallback(data) {
-        console.log(data);
-    }
 });
