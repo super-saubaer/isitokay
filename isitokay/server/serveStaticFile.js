@@ -1,5 +1,5 @@
 let Promise = require('promise');
-let getStaticFile = require('./getStaticFile.js');
+let getStaticFile = require('./staticFileHandler.js');
 let respond = require('./respond.js');
 
 /**

@@ -42,7 +42,7 @@ exports.respondWithError = function (context) {
                 'Content-Type': contentType,
             },
         };
-        context.log('Badly served! :)');
+        context.log('Badly served! :(');
         fulfill();
     });
 };

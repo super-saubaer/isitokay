@@ -1,5 +1,7 @@
 let Promise = require('promise');
+let randomstring = require('randomstring');
 let respond = require('./respond.js');
+let tableStorage = require('./tableStorage.js');
 
 /**
  * Function that stores client Data on Table Storage and generates Answer Link
@@ -12,13 +14,27 @@ exports.generateAnswerLink = function (context, clientData) {
         try {
             context.log('trying to generate answer link');
 
-            context.log(clientData);
+            let rowKey = randomstring.generate({
+                length: 12,
+                charset: 'alphabetic',
+            });
 
-
-            respond.respondWithData(context, encodeURIComponent('https//weirdquestion.io?question=asdhjskdhjs')).then(function () {
+            tableStorage.storeDataOnTable(context, rowKey, JSON.stringify(clientData)).then(function (data) {
+                // Responding with Link to rowKey
+                respond.respondWithData(context, encodeURIComponent('https//weirdquestion.io?question=' + rowKey)).then(function () {
+                    fulfill();
+                });
+            }).then(function () {
+                // fulfilling...
                 fulfill();
+            }).catch(function (exception) {
+                context.log(exception);
+                respond.respondWithError(context).then(function () {
+                    fulfill();
+                });
             });
         } catch (exception) {
+            context.log(exception);
             respond.respondWithError().then(function () {
                 fulfill();
             });
