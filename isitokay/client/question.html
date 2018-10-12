@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <link rel="stylesheet" href="?file=./styles.css">
+    <!-- Google Material Design Icon Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>weirdquestion.io</title>
 </head>
 
@@ -19,53 +21,35 @@
             <!--
                     <h1 class="display-4 text-dark font-weight-normal">weirdquestion.io</h1>
                 -->
-            <h1 class="display-4 text-dark font-weight-normal">You have a weird question?</h1>
+            <h1 id="title1" class="display-4 text-dark font-weight-normal text-center">&nbsp;</h1>
             <hr class="my-4">
-            <h1 class="display-4 text-dark font-weight-normal">Good. Go ahead &amp; answer it!</h1>
+            <h1 id="title2" class="display-4 text-dark font-weight-normal text-center">&nbsp;</h1>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container container-ready">
         <form>
-            <div class="form-group">
+            <div id="myQuestionContainer" class="form-group">
                 <label for="formQuestion">My Question</label>
                 <input type="text" class="form-control" id="formQuestion" aria-describedby="emailHelp" placeholder="Is it okay to drink beer befor now?">
             </div>
-            <div class="form-group">
+            <div id="myAnswerContainer" class="form-group">
                 <label for="formAnswer">My Answer(s)</label>
-                <div class="input-group">
+                <div id="myAnswerTemplate" class="input-group">
                     <input id="formAnswer" type="text" class="form-control" placeholder="No. But Spritz Sélect at anytime!"
                         aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-warning text-dark" type="button">+</button>
-                        <button class="btn btn-outline-warning text-dark" type="button">Time</button>
+                        <button id="waitButton" class="btn btn-outline-warning text-dark materialIconAdaption" type="button">
+                            <i class="material-icons">add</i>
+                        </button>
+                        <button class="btn btn-outline-warning text-dark materialIconAdaption" type="button">
+                            <i class="material-icons">access_time</i>
+                        </button>
                     </div>
                 </div>
                 <p></p>
-                
-                <div class="input-group">
-                    <input id="formAnswer" type="text" class="form-control" placeholder="No. But Spritz Sélect!"
-                        aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-warning text-dark" type="button">+</button>
-                        <button class="btn btn-outline-warning text-dark" type="button">Time</button>
-                    </div>
-                </div>
-
-                <!--
-
-    <div class="input-group mb-3">
-        <input id="formAnswer" type="text" class="form-control" placeholder="No. But Spritz Sélect!"
-        aria-describedby="basic-addon1">
-        <div class="input-group-btn">
-            <button class="btn btn-warning text-dark" type="button">PLUS</button>
-            <button class="btn btn-warning text-dark" type="button">TIME</button>
-        </div>
-    </div>
--->
             </div>
             <hr class="my-4">
-            <button type="button" id="formButton" class="btn btn-warning">Generate Link</button>
         </form>
     </div>
 
