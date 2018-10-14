@@ -4,48 +4,46 @@
 
 $(document).ready(function () {
     // Typewriter
-    let counter1 = 0;
     let title1 = 'You have a weird question? ';
-    let counter2 = 0;
     let title2 = 'Good. Go ahead & answer it! ';
     let speed = 100; /* The speed/duration of the effect in milliseconds */
 
-    typeTitel1();
+    typeTitles('title1', title1, 0);
 
     /**
      * typeTytle Function
+     * @param {string} element - DOM Element
+     * @param {string} text - title text
+     * @param {number} counter - text counter
      */
-    function typeTitel1() {
-        if (counter1 < title1.length) {
-            document.getElementById('title1').innerHTML += title1.charAt(counter1);
-            counter1++;
-            setTimeout(typeTitel1, speed);
+    function typeTitles(element, text, counter) {
+        if (counter < text.length) {
+            // Typing Character
+            document.getElementById(element).innerHTML += text.charAt(counter);
+            // Waiting for next character
+            setTimeout(function () {
+                typeTitles(element, text, ++counter);
+            }, speed);
         } else {
-            console.log('read here');
-            typeTitel2();
+            // #Abbruchbestimmungen
+            if (element.indexOf('title1') > -1) {
+                typeTitles('title2', title2, 0);
+            } else if (element.indexOf('title2') > -1) {
+                $('.container').css('opacity', 1);
+            }
         }
     }
-
-    /**
-     * typeTytle Function
-     */
-    function typeTitel2() {
-        if (counter2 < title2.length) {
-            document.getElementById('title2').innerHTML += title2.charAt(counter2);
-            counter2++;
-            setTimeout(typeTitel2, speed);
-        } else {
-            $('.container').css('opacity', 1);
-        }
-    }
-
-    
 
     // Simple json data model
     let dataModel = {
         question: '',
         answers: [],
     };
+
+    // Listening on + Button Click
+    $(document).on('click', '.button-add', function () {
+        $('#myAnswerTemplate').clone().appendTo('#myAnswerContainer');
+    });
 
     // Generate Button Listener
     $('#formButton').click(function () {
