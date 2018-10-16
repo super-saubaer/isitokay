@@ -4,7 +4,8 @@
   "description": "is it really okay?",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "author": "Super Saubaer",
   "license": "ISC",
@@ -17,6 +18,8 @@
   },
   "devDependencies": {
     "eslint": "^5.6.1",
-    "eslint-config-google": "^0.10.0"
+    "eslint-config-google": "^0.10.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
   }
 }

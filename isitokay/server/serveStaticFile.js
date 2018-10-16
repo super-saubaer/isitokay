@@ -11,7 +11,7 @@ let respond = require('./respond.js');
 exports.serveStaticFile = function (context, fileName) {
     return new Promise(function (fulfill, reject) {
         try {
-            let folderName = 'client';
+            let folderName = 'dist';
             getStaticFile.getStaticFile(context, folderName, fileName).then(function (data) {
                 // Parsing and extracting data
                 return respond.respondWithData(context, data);
