@@ -1,17 +1,25 @@
 /**
  * Simple javascript to read Question & Answer and send them to the backend...
  */
-
 $(document).ready(function () {
     // Typewriter
-    let title1 = 'You have a weird question? ';
-    let title2 = 'Good. Go ahead & answer it! ';
-    let speed = 100; /* The speed/duration of the effect in milliseconds */
+    const titleUpper = 'You have a weird question? ';
+    const titleLower = 'Good. Go ahead & answer it! ';
+    const speed = 100; /* The speed/duration of the effect in milliseconds */
+    // Placeholder Texts
+    const placeholderAnswers = [
+        'Okay. But only 3',
+        'Is this realy a question?',
+        'BEEEER!!11!',
+        'If you wait another 2 minutes it should be fine',
+        'Ahem. Always. ',
+    ];
 
-    typeTitles('title1', title1, 0);
+    // Starting Typewriter
+    typeTitles('titleUpper', titleUpper, 0);
 
     /**
-     * typeTytle Function
+     * typeTitles Function
      * @param {string} element - DOM Element
      * @param {string} text - title text
      * @param {number} counter - text counter
@@ -26,9 +34,10 @@ $(document).ready(function () {
             }, speed);
         } else {
             // #Abbruchbestimmungen
-            if (element.indexOf('title1') > -1) {
-                typeTitles('title2', title2, 0);
-            } else if (element.indexOf('title2') > -1) {
+            if (element.indexOf('titleUpper') > -1) {
+                typeTitles('titleLower', titleLower, 0);
+            } else if (element.indexOf('titleLower') > -1) {
+                // Revealing container
                 $('.container').css('opacity', 1);
             }
         }
@@ -40,9 +49,37 @@ $(document).ready(function () {
         answers: [],
     };
 
-    // Listening on + Button Click
-    $(document).on('click', '.button-add', function () {
-        $('#myAnswerTemplate').clone().appendTo('#myAnswerContainer');
+    // Listening on Add Button Click
+    $(document).on('click', '#button-add', function () {
+        // Clonging Answer
+        let clonedAnswerTemplate = $('#myAnswerTemplate').clone();
+        // Getting random Placeholder Text
+        let placeHolderText = placeholderAnswers[Math.round(Math.random() * ((placeholderAnswers.length - 1) - 0))];
+        // Setting on child element
+        $(clonedAnswerTemplate).find('#formAnswer').attr('placeholder', placeHolderText);
+
+        // Changing Add Button to Remove Button
+        $(clonedAnswerTemplate).find('#button-add').find('i').text('remove');
+        $(clonedAnswerTemplate).find('#button-add').attr('id', 'button-remove');
+
+        // // Adding Remove Button
+        // let removeButtonElement = $(clonedAnswerTemplate).find('#button-add').clone();
+        // // Setting ID and Remove Icon
+        // $(removeButtonElement).attr('id', 'button-remove');
+        // $(removeButtonElement).find('i').text('remove');
+        // // Inserting bevor add button
+        // $($(clonedAnswerTemplate).find('#button-add')).before(removeButtonElement);
+
+        // Inserting Complete Answer Element into DOM
+        $(clonedAnswerTemplate).appendTo('#myAnswerContainer');
+    });
+
+    // Listening on Remove Button Click
+    $(document).on('click', '#button-remove', function () {
+        // Getting clostet parent Answer Template
+        let removableAnswerTemplate = $(this).closest('#myAnswerTemplate');
+        // Remove Answer Template
+        $(removableAnswerTemplate).remove();
     });
 
     // Generate Button Listener
