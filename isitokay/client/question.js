@@ -52,11 +52,11 @@ $(document).ready(function () {
     // Listening on Add Button Click
     $(document).on('click', '#button-add', function () {
         // Clonging Answer
-        let clonedAnswerTemplate = $('#myAnswerTemplate').clone();
+        let clonedAnswerTemplate = $('#answer-template').clone();
         // Getting random Placeholder Text
         let placeHolderText = placeholderAnswers[Math.round(Math.random() * ((placeholderAnswers.length - 1) - 0))];
         // Setting on child element
-        $(clonedAnswerTemplate).find('#formAnswer').attr('placeholder', placeHolderText);
+        $(clonedAnswerTemplate).find('#form-answer').attr('placeholder', placeHolderText);
 
         // Changing Add Button to Remove Button
         $(clonedAnswerTemplate).find('#button-add').find('i').text('remove');
@@ -71,31 +71,42 @@ $(document).ready(function () {
         // $($(clonedAnswerTemplate).find('#button-add')).before(removeButtonElement);
 
         // Inserting Complete Answer Element into DOM
-        $(clonedAnswerTemplate).appendTo('#myAnswerContainer');
+        $(clonedAnswerTemplate).appendTo('#answer-container');
     });
 
     // Listening on Remove Button Click
     $(document).on('click', '#button-remove', function () {
         // Getting clostet parent Answer Template
-        let removableAnswerTemplate = $(this).closest('#myAnswerTemplate');
+        let removableAnswerTemplate = $(this).closest('#answer-template');
         // Remove Answer Template
         $(removableAnswerTemplate).remove();
     });
 
     // Generate Button Listener
-    $('#formButton').click(function () {
+    $('#generate-button').click(function () {
         let dataValid = true;
 
-        if (!$('#formQuestion').val()) {
-            $('#formQuestion').addClass('is-invalid');
+        // Question defined?
+        if (!$('.form-question').val()) {
+            $('.form-question').addClass('is-invalid');
             dataValid = false;
+        } else {
+            // In case it was invalid already
+            $('.form-question').removeClass('is-invalid');
         }
 
-        if (!$('#formAnswer').val()) {
-            $('#formAnswer').addClass('is-invalid');
-            dataValid = false;
-        }
+        // Answer(s) defined?
+        $('.form-answer').each(function() {
+            if (!$(this).val()) {
+                $(this).addClass('is-invalid');
+                dataValid = false;
+            } else {
+                // In case it was invalid already
+                $(this).removeClass('is-invalid');
+            }
+        });
 
+        // Calling for Answer Link
         if (dataValid) {
             // Adding data
             dataModel.question = $('#formQuestion').val();
