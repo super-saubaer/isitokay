@@ -10,15 +10,21 @@
   "author": "Super Saubaer",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "^9.2.1",
     "azure-storage": "^2.10.1",
+    "css-loader": "^1.0.0",
     "fs": "0.0.1-security",
+    "jquery": "^3.3.1",
     "mime-types": "^2.1.20",
+    "popper.js": "^1.14.4",
     "promise": "^8.0.2",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "style-loader": "^0.23.1"
   },
   "devDependencies": {
     "eslint": "^5.6.1",
     "eslint-config-google": "^0.10.0",
+    "postcss-loader": "^3.0.0",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
   }

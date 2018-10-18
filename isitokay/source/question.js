@@ -1,6 +1,9 @@
 /**
  * Simple javascript to read Question & Answer and send them to the backend...
  */
+let $ = require('jquery');
+
+
 $(document).ready(function () {
     // Typewriter
     const titleUpper = 'You have a weird question? ';
@@ -72,6 +75,7 @@ $(document).ready(function () {
 
         // Inserting Complete Answer Element into DOM
         $(clonedAnswerTemplate).appendTo('#answer-container');
+        
     });
 
     // Listening on Remove Button Click

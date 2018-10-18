@@ -1,0 +1,12 @@
+{
+    "saveAndRun": {
+        "commands": [
+          {
+            "match": ".js",
+            "cmd": "npm run build",
+            "useShortcut": false,
+            "silent": false
+          }
+        ]
+      }
+}

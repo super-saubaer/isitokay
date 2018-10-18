@@ -1,0 +1,17 @@
+{
+    "saveAndRun": {
+        "commands": [{
+                "match": ".js",
+                "cmd": "npm run build",
+                "useShortcut": false,
+                "silent": false
+            },
+            // {
+            //     "match": "\\.txt$",
+            //     "cmd": "echo 'I am a .txt file ${file}.'",
+            //     "useShortcut": false,
+            //     "silent": false
+            // }
+        ]
+    }
+}
