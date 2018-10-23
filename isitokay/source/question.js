@@ -4,10 +4,15 @@
 let $ = require('jquery');
 
 
+
 $(document).ready(function () {
     // Typewriter
-    const titleUpper = 'You have a weird question? ';
-    const titleLower = 'Good. Go ahead & answer it! ';
+    // const titleUpper = 'You have a weird question? ';
+    // const titleLower = 'Good. Go ahead & answer it! ';
+
+    const titleUpper = 'weirdquestion.io ';
+    const titleLower = 'You have a weird question? Great! Answer it and show the world! ';
+
     const speed = 100; /* The speed/duration of the effect in milliseconds */
     // Placeholder Texts
     const placeholderAnswers = [
@@ -38,10 +43,13 @@ $(document).ready(function () {
         } else {
             // #Abbruchbestimmungen
             if (element.indexOf('titleUpper') > -1) {
-                typeTitles('titleLower', titleLower, 0);
+                // typeTitles('titleLower', titleLower, 0);
+                $('#titleLower').text(titleLower);
+                 // Revealing container
+                 $('.container').css('opacity', 1);
             } else if (element.indexOf('titleLower') > -1) {
                 // Revealing container
-                $('.container').css('opacity', 1);
+                // $('.container').css('opacity', 1);
             }
         }
     }
@@ -60,6 +68,8 @@ $(document).ready(function () {
         let placeHolderText = placeholderAnswers[Math.round(Math.random() * ((placeholderAnswers.length - 1) - 0))];
         // Setting on child element
         $(clonedAnswerTemplate).find('#form-answer').attr('placeholder', placeHolderText);
+        // clearing text
+        $(clonedAnswerTemplate).find('#form-answer').val('');
 
         // Changing Add Button to Remove Button
         $(clonedAnswerTemplate).find('#button-add').find('i').text('remove');

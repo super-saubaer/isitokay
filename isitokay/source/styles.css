@@ -49,10 +49,9 @@ body {
     text-align: center;
 }
 
-
-/*
-#question-container {
-    background-color: orange;
-    color: blue;
+/* Adaptive font for mobile devices */
+@media screen and (max-width: 600px) {
+    h1.adaptive-font {
+        font-size: 10vw;
+    }
 }
-*/
