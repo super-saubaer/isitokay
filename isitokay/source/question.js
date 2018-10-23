@@ -3,8 +3,6 @@
  */
 let $ = require('jquery');
 
-
-
 $(document).ready(function () {
     // Typewriter
     // const titleUpper = 'You have a weird question? ';
@@ -45,8 +43,8 @@ $(document).ready(function () {
             if (element.indexOf('titleUpper') > -1) {
                 // typeTitles('titleLower', titleLower, 0);
                 $('#titleLower').text(titleLower);
-                 // Revealing container
-                 $('.container').css('opacity', 1);
+                // Revealing container
+                $('.container').css('opacity', 1);
             } else if (element.indexOf('titleLower') > -1) {
                 // Revealing container
                 // $('.container').css('opacity', 1);
@@ -85,7 +83,6 @@ $(document).ready(function () {
 
         // Inserting Complete Answer Element into DOM
         $(clonedAnswerTemplate).appendTo('#answer-container');
-        
     });
 
     // Listening on Remove Button Click
@@ -95,6 +92,24 @@ $(document).ready(function () {
         // Remove Answer Template
         $(removableAnswerTemplate).remove();
     });
+
+    // Listening on time button
+    $(document).on('click', '#button-time', function () {
+        console.log('button-time');
+        $('.clockpicker').clockpicker('show');
+
+    });
+
+   
+
+    // $('.clockpicker').clockpicker()
+    //     .find('input').change(function () {
+    //         // TODO: time changed
+    //         console.log(this.value);
+    //     });
+    // $('#demo-input').clockpicker({
+    //     autoclose: true
+    // });
 
     // Generate Button Listener
     $('#generate-button').click(function () {
@@ -110,7 +125,7 @@ $(document).ready(function () {
         }
 
         // Answer(s) defined?
-        $('.form-answer').each(function() {
+        $('.form-answer').each(function () {
             if (!$(this).val()) {
                 $(this).addClass('is-invalid');
                 dataValid = false;

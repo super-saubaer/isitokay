@@ -1,7 +1,15 @@
 const path = require('path');
 
 module.exports = {
-    entry: ['./source/popper.js', './source/bootstrap.js', './source/question.js', './source/styles.css'],
+    entry: [
+        './source/popper.js',
+        './source/bootstrap.js',
+        './source/bootstrap.css',
+        './source/bootstrap-clockpicker.min.css',
+        './source/bootstrap-clockpicker.js',
+        './source/styles.css',
+        './source/question.js',
+    ],
     // mode: 'production',
     mode: 'development',
     output: {
