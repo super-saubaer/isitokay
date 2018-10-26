@@ -8,6 +8,14 @@ $(document).ready(function () {
     // const titleUpper = 'You have a weird question? ';
     // const titleLower = 'Good. Go ahead & answer it! ';
 
+    // $('#button-time').clockpicker({
+    //     'placement': 'bottom',
+    //     'align': 'right',
+    //     'autoclose': true,
+
+    // });
+
+
     const titleUpper = 'weirdquestion.io ';
     const titleLower = 'You have a weird question? Great! Answer it and show the world! ';
 
@@ -93,14 +101,39 @@ $(document).ready(function () {
         $(removableAnswerTemplate).remove();
     });
 
+    $('.clockpicker').clockpicker()
+        .find('button').change(function () {
+            // TODO: time changed
+            console.log(this.value);
+        });
+    $('#button-time').clockpicker({
+        autoclose: false,
+        donetext: 'thisishitty',
+    });
+
+
+
+
     // Listening on time button
     $(document).on('click', '#button-time', function () {
         console.log('button-time');
-        $('.clockpicker').clockpicker('show');
+        // Hanging on listener
+        $('#button-time').clockpicker('show') // Or hide, remove ...
+            .clockpicker('toggleView', 'minutes');
 
+
+        // // Creating
+        // let clockFrom = $('#button-time').clockpicker();
+        // clockFrom.clockpicker().find('input').change(function () {
+        //     // TODO: time changed
+        //     console.log(this.value);
+        // });
+        // // Listening
+
+        // // Showing
+        // clockFrom.clockpicker('show');
     });
 
-   
 
     // $('.clockpicker').clockpicker()
     //     .find('input').change(function () {
