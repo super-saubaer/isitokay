@@ -76,6 +76,8 @@ $(document).ready(function () {
         $(clonedAnswerTemplate).find('#form-answer').attr('placeholder', placeHolderText);
         // clearing text
         $(clonedAnswerTemplate).find('#form-answer').val('');
+        // clearing time
+        $(clonedAnswerTemplate).find('.badge').text('');
 
         // Changing Add Button to Remove Button
         $(clonedAnswerTemplate).find('#button-add').find('i').text('remove');
@@ -115,14 +117,57 @@ $(document).ready(function () {
     // Listening on time button
     $(document).on('click', '#button-time', function () {
         console.log('button-time');
+        let spanTimeValue = '';
+        // clearing span
+        $(this).find('.badge').text('');
         // Initing & Listening
         $(this).closest('.clockpicker').clockpicker().find('input').change(function () {
+            let currentBadgeValue = $(this).closest('.clockpicker').find('.badge').text();
+            let newBadgeValue = '';
+            let setToTime = false;
+            let clearClockPicker = false;
+
+
             // TODO: time changed
+            
+            if (!currentBadgeValue) {
+                newBadgeValue = this.value + '-';
+                setToTime = true;
+            } else {
+                newBadgeValue = currentBadgeValue + this.value;
+                setToTime = false;
+            }
+            
             console.log(this.value);
+            console.log('newBadgeValue: ' + newBadgeValue);
+           
+            // Setting value in span
+            $(this).closest('.clockpicker').find('.badge').text(newBadgeValue);
+
+            // Second ClockPicker
+            // $(this).closest('.clockpicker').clockpicker().find('input').change(function () {
+            //     console.log(this.value);
+            //     spanTimeValue = spanTimeValue + this.value;
+            //     $(this).closest('.clockpicker').find('.badge').text(spanTimeValue);
+            // });
+            if (setToTime) {
+                $(this).closest('.clockpicker').clockpicker('show');
+                clearClockPicker = true;
+            } 
+            
+            if (clearClockPicker) {
+                $(this).closest('.clockpicker').clockpicker('remove');
+            }
+            
+
+
+
+
+
         });
         $(this).closest('.clockpicker').clockpicker('show');
         
-        
+
     });
 
 
