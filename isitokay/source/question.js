@@ -101,15 +101,13 @@ $(document).ready(function () {
         $(removableAnswerTemplate).remove();
     });
 
-    $('.clockpicker').clockpicker()
-        .find('button').change(function () {
-            // TODO: time changed
-            console.log(this.value);
-        });
-    $('#button-time').clockpicker({
-        autoclose: false,
-        donetext: 'thisishitty',
-    });
+    // General clockpicker callback
+    // $('.clockpicker').clockpicker()
+    //     .find('input').change(function () {
+    //         // TODO: time changed
+    //         console.log(this.value);
+    //     });
+
 
 
 
@@ -117,21 +115,14 @@ $(document).ready(function () {
     // Listening on time button
     $(document).on('click', '#button-time', function () {
         console.log('button-time');
-        // Hanging on listener
-        $('#button-time').clockpicker('show') // Or hide, remove ...
-            .clockpicker('toggleView', 'minutes');
-
-
-        // // Creating
-        // let clockFrom = $('#button-time').clockpicker();
-        // clockFrom.clockpicker().find('input').change(function () {
-        //     // TODO: time changed
-        //     console.log(this.value);
-        // });
-        // // Listening
-
-        // // Showing
-        // clockFrom.clockpicker('show');
+        // Initing & Listening
+        $(this).closest('.clockpicker').clockpicker().find('input').change(function () {
+            // TODO: time changed
+            console.log(this.value);
+        });
+        $(this).closest('.clockpicker').clockpicker('show');
+        
+        
     });
 
 

@@ -49,6 +49,14 @@ body {
     text-align: center;
 }
 
+.input-hidden {
+    /* width: 0px;
+    visibility: hidden;
+    border: 0; */
+    
+    display: none;
+}
+
 /* Adaptive font for mobile devices */
 @media screen and (max-width: 600px) {
     h1.adaptive-font {
