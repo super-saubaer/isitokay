@@ -156,6 +156,31 @@ $(document).ready(function () {
             }
         });
 
+        // TimeOption(s) defined?
+        $('.time-option').each(function () {
+            // Preparing flag
+            let timeOptionValid = true;
+            // Getting time option value
+            let timeOption = $(this).text();
+            // Is there a time option and is it valid?
+            if (timeOption && timeOption.length !== 11) {
+                // Removing warning class
+                $(this).closest('#button-time').removeClass('btn-outline-warning');
+                // Adding danger class
+                $(this).closest('#button-time').addClass('btn-outline-danger');
+                // Setting Flags
+                timeOptionValid = false;
+                dataValid = false;
+            }
+            // Is this time option valid?
+            if (timeOptionValid) {
+                // Removing warning class
+                $(this).closest('#button-time').removeClass('btn-outline-danger');
+                // Adding warning class -> normal styling
+                $(this).closest('#button-time').addClass('btn-outline-warning');
+            }
+        });
+
         // Calling for Answer Link
         if (dataValid) {
             // Adding data

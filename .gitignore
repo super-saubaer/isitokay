@@ -2,4 +2,4 @@
 local.settings.json
 isitokay/package-lock.json
 isitokay/node_modules
-.vscode
+.vscode/
