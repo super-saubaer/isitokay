@@ -52,12 +52,6 @@ $(document).ready(function () {
         }
     }
 
-    // Simple json data model
-    let dataModel = {
-        question: '',
-        answers: [],
-    };
-
     // Listening on Add Button Click
     $(document).on('click', '#button-add', function () {
         // Clonging Answer
@@ -165,9 +159,9 @@ $(document).ready(function () {
             // Is there a time option and is it valid?
             if (timeOption && timeOption.length !== 11) {
                 // Removing warning class
-                $(this).closest('#button-time').removeClass('btn-outline-warning');
+                $(this).closest('.button-time').removeClass('btn-outline-warning');
                 // Adding danger class
-                $(this).closest('#button-time').addClass('btn-outline-danger');
+                $(this).closest('.button-time').addClass('btn-outline-danger');
                 // Setting Flags
                 timeOptionValid = false;
                 dataValid = false;
@@ -175,17 +169,41 @@ $(document).ready(function () {
             // Is this time option valid?
             if (timeOptionValid) {
                 // Removing warning class
-                $(this).closest('#button-time').removeClass('btn-outline-danger');
+                $(this).closest('.button-time').removeClass('btn-outline-danger');
                 // Adding warning class -> normal styling
-                $(this).closest('#button-time').addClass('btn-outline-warning');
+                $(this).closest('.button-time').addClass('btn-outline-warning');
             }
         });
 
         // Calling for Answer Link
         if (dataValid) {
-            // Adding data
+            // Simple json data model
+            let dataModel = {
+                question: '',
+                answers: [],
+                utcTimeOffset: new Date().getTimezoneOffset(), // Setting UTC Time Offset of client
+            };
+
+            // Adding Question Text
             dataModel.question = $('#formQuestion').val();
-            dataModel.answers.push($('#formAnswer').val());
+
+            $('.form-answer').each(function () {
+                // Adding Answer Text
+                let answer = {
+                    text: $(this).val(),
+                };
+
+                // Getting Answer Time Option
+                let answerTimeOption = $(this).next('#button-group').find('.time-option').text();
+                // Is it defined?
+                if (answerTimeOption && answerTimeOption.length === 11) {
+                    // Setting Answer Time option
+                    answer.time = answerTimeOption;
+                }
+                // Pushing answer object to data model
+                dataModel.answers.push(answer);
+            });
+
             console.log('Sending data: ' + JSON.stringify(dataModel));
             let url = window.location + '?generate';
             console.log(url);
