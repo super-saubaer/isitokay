@@ -8,14 +8,6 @@ $(document).ready(function () {
     // const titleUpper = 'You have a weird question? ';
     // const titleLower = 'Good. Go ahead & answer it! ';
 
-    // $('#button-time').clockpicker({
-    //     'placement': 'bottom',
-    //     'align': 'right',
-    //     'autoclose': true,
-
-    // });
-
-
     const titleUpper = 'weirdquestion.io ';
     const titleLower = 'You have a weird question? Great! Answer it and show the world! ';
 
@@ -103,82 +95,47 @@ $(document).ready(function () {
         $(removableAnswerTemplate).remove();
     });
 
-    // General clockpicker callback
-    // $('.clockpicker').clockpicker()
-    //     .find('input').change(function () {
-    //         // TODO: time changed
-    //         console.log(this.value);
-    //     });
-
-
-
-
-
     // Listening on time button
     $(document).on('click', '#button-time', function () {
-        console.log('button-time');
-        let spanTimeValue = '';
-        // clearing span
+        // Initializing ClockPicker
+        let clockPicker = $(this).closest('.clockpicker');
+        // clearing Badge Value -> Necesarry if user wants to reset time
         $(this).find('.badge').text('');
-        // Initing & Listening
-        $(this).closest('.clockpicker').clockpicker().find('input').change(function () {
+
+        // Listening on input element
+        clockPicker.clockpicker().find('input').change(function () {
+            // Getting current Badge Value
             let currentBadgeValue = $(this).closest('.clockpicker').find('.badge').text();
             let newBadgeValue = '';
+            // Flag indicating if second clockPicker needs to be shown
             let setToTime = false;
-            let clearClockPicker = false;
+            // Flag indicating if ClockPicker event listeners should be removed.
+            let removeEventListeners = false;
 
-
-            // TODO: time changed
-            
             if (!currentBadgeValue) {
+                // Setting from-time
                 newBadgeValue = this.value + '-';
                 setToTime = true;
             } else {
+                // Setting to-time
                 newBadgeValue = currentBadgeValue + this.value;
-                setToTime = false;
+                removeEventListeners = true;
             }
-            
-            console.log(this.value);
-            console.log('newBadgeValue: ' + newBadgeValue);
-           
-            // Setting value in span
+
+            // Setting time value in badge
             $(this).closest('.clockpicker').find('.badge').text(newBadgeValue);
 
-            // Second ClockPicker
-            // $(this).closest('.clockpicker').clockpicker().find('input').change(function () {
-            //     console.log(this.value);
-            //     spanTimeValue = spanTimeValue + this.value;
-            //     $(this).closest('.clockpicker').find('.badge').text(spanTimeValue);
-            // });
+            // Showing ClockPicker for to-time
             if (setToTime) {
-                $(this).closest('.clockpicker').clockpicker('show');
-                clearClockPicker = true;
-            } 
-            
-            if (clearClockPicker) {
-                $(this).closest('.clockpicker').clockpicker('remove');
+                clockPicker.clockpicker('show');
             }
-            
-
-
-
-
-
+            // Removing EventListeners
+            if (removeEventListeners) {
+                $(clockPicker).find('input').off();
+            }
         });
-        $(this).closest('.clockpicker').clockpicker('show');
-        
-
+        clockPicker.clockpicker('show');
     });
-
-
-    // $('.clockpicker').clockpicker()
-    //     .find('input').change(function () {
-    //         // TODO: time changed
-    //         console.log(this.value);
-    //     });
-    // $('#demo-input').clockpicker({
-    //     autoclose: true
-    // });
 
     // Generate Button Listener
     $('#generate-button').click(function () {
