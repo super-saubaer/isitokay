@@ -97,12 +97,14 @@ $(document).ready(function () {
 
     // Listening on time button
     $(document).on('click', '#button-time', function () {
-        // Initializing ClockPicker
+        // Getting Clockpicker element
         let clockPicker = $(this).closest('.clockpicker');
+        // Removing all eventListeners first -> Necesarry if user wants to reset time
+        $(clockPicker).find('input').off();
         // clearing Badge Value -> Necesarry if user wants to reset time
         $(this).find('.badge').text('');
 
-        // Listening on input element
+        // Initializing & Listening on input element
         clockPicker.clockpicker().find('input').change(function () {
             // Getting current Badge Value
             let currentBadgeValue = $(this).closest('.clockpicker').find('.badge').text();
@@ -110,8 +112,6 @@ $(document).ready(function () {
             // Flag indicating if second clockPicker needs to be shown
             let setToTime = false;
             // Flag indicating if ClockPicker event listeners should be removed.
-            let removeEventListeners = false;
-
             if (!currentBadgeValue) {
                 // Setting from-time
                 newBadgeValue = this.value + '-';
@@ -119,7 +119,6 @@ $(document).ready(function () {
             } else {
                 // Setting to-time
                 newBadgeValue = currentBadgeValue + this.value;
-                removeEventListeners = true;
             }
 
             // Setting time value in badge
@@ -128,10 +127,6 @@ $(document).ready(function () {
             // Showing ClockPicker for to-time
             if (setToTime) {
                 clockPicker.clockpicker('show');
-            }
-            // Removing EventListeners
-            if (removeEventListeners) {
-                $(clockPicker).find('input').off();
             }
         });
         clockPicker.clockpicker('show');
