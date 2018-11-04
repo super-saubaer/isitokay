@@ -4,12 +4,11 @@
 let $ = require('jquery');
 
 $(document).ready(function () {
+    // questionChanged flag
+    let questionChanged = false;
     // Typewriter
-    // const titleUpper = 'You have a weird question? ';
-    // const titleLower = 'Good. Go ahead & answer it! ';
-
-    const titleUpper = 'weirdquestion.io ';
-    const titleLower = 'You have a weird question? Great! Answer it and show the world! ';
+    const titleUpperText = 'weirdquestion.io ';
+    const titleLowerText = 'You have a weird question? Great! Answer it and show the world! ';
 
     const speed = 100; /* The speed/duration of the effect in milliseconds */
     // Placeholder Texts
@@ -22,7 +21,7 @@ $(document).ready(function () {
     ];
 
     // Starting Typewriter
-    typeTitles('titleUpper', titleUpper, 0);
+    typeTitles('title-upper', titleUpperText, 0);
 
     /**
      * typeTitles Function
@@ -40,12 +39,12 @@ $(document).ready(function () {
             }, speed);
         } else {
             // #Abbruchbestimmungen
-            if (element.indexOf('titleUpper') > -1) {
+            if (element.indexOf('title-upper') > -1) {
                 // typeTitles('titleLower', titleLower, 0);
-                $('#titleLower').text(titleLower);
+                $('#title-lower').text(titleLowerText);
                 // Revealing container
                 $('.container').css('opacity', 1);
-            } else if (element.indexOf('titleLower') > -1) {
+            } else if (element.indexOf('title-lower') > -1) {
                 // Revealing container
                 // $('.container').css('opacity', 1);
             }
@@ -54,6 +53,8 @@ $(document).ready(function () {
 
     // Listening on Add Button Click
     $(document).on('click', '#button-add', function () {
+        // new question?
+        checkQuestionChanged();
         // Clonging Answer
         let clonedAnswerTemplate = $('#answer-template').clone();
         // Getting random Placeholder Text
@@ -83,6 +84,8 @@ $(document).ready(function () {
 
     // Listening on Remove Button Click
     $(document).on('click', '#button-remove', function () {
+        // new question?
+        checkQuestionChanged();
         // Getting clostet parent Answer Template
         let removableAnswerTemplate = $(this).closest('#answer-template');
         // Remove Answer Template
@@ -91,6 +94,8 @@ $(document).ready(function () {
 
     // Listening on time button
     $(document).on('click', '#button-time', function () {
+        // new question?
+        checkQuestionChanged();
         // Getting Clockpicker element
         let clockPicker = $(this).closest('.clockpicker');
         // Removing all eventListeners first -> Necesarry if user wants to reset time
@@ -124,6 +129,23 @@ $(document).ready(function () {
             }
         });
         clockPicker.clockpicker('show');
+    });
+
+    // Listening on Link-Button
+    $('#link-button').click(function () {
+        link = $(this).attr('href');
+        // TODO: Copying Link to clipboard
+        // Selecting Text
+        // link.select();
+        // // Copying selected Text
+        // document.execCommand('copy');
+        // Opening Link in new Tab
+        window.open(link, '_blank');
+    });
+
+    // Listening on change of user input
+    $(document).on('change', '.form-user-input', function () {
+        checkQuestionChanged();
     });
 
     // Generate Button Listener
@@ -185,7 +207,7 @@ $(document).ready(function () {
             };
 
             // Adding Question Text
-            dataModel.question = $('#formQuestion').val();
+            dataModel.question = $('#form-question').val();
 
             $('.form-answer').each(function () {
                 // Adding Answer Text
@@ -206,11 +228,37 @@ $(document).ready(function () {
 
             console.log('Sending data: ' + JSON.stringify(dataModel));
             let url = window.location + '?generate';
-            console.log(url);
 
             $.post(url, JSON.stringify(dataModel), function (result) {
-                console.log(decodeURIComponent(result));
+                if (result) {
+                    let link = decodeURIComponent(result);
+                    // setting result link in text element
+                    $('#link-text').val(link);
+                    // Setting href for button
+                    $('#link-button').attr('href', link);
+                    // Hiding generate Button
+                    $('#generate-button').css('display', 'none');
+                    // Showing text container
+                    $('#link-container').css('visibility', 'visible');
+                    // Setting questionChanged flag
+                    questionChanged = true;
+                }
             });
         }
     });
+
+    /**
+     * Function that checks if question has changed
+     */
+    function checkQuestionChanged() {
+        if (questionChanged) {
+            // question already submitted and now changed
+            // Changing visibility of link containes & buttons
+            $('#generate-button').css('display', 'block');
+            // Showing text container
+            $('#link-container').css('visibility', 'hidden');
+            // toggling questionChanged flag
+            questionChanged = false;
+        }
+    }
 });

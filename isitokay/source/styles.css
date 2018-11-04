@@ -63,3 +63,7 @@ body {
         font-size: 10vw;
     }
 }
+
+#link-container {
+    visibility: hidden;
+}

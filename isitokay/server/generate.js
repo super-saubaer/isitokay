@@ -2,6 +2,8 @@ let Promise = require('promise');
 let randomstring = require('randomstring');
 let respond = require('./respond.js');
 let tableStorage = require('./tableStorage.js');
+// const baseUrl = 'https://weirdquestion.io?question=';
+const baseUrl = 'http://localhost:7071/api/isitokay?question=';
 
 /**
  * Function that stores client Data on Table Storage and generates Answer Link
@@ -21,7 +23,7 @@ exports.generateAnswerLink = function (context, clientData) {
 
             tableStorage.storeDataOnTable(context, rowKey, JSON.stringify(clientData)).then(function (data) {
                 // Responding with Link to rowKey
-                respond.respondWithData(context, encodeURIComponent('https//weirdquestion.io?question=' + rowKey)).then(function () {
+                respond.respondWithData(context, encodeURIComponent(baseUrl + rowKey)).then(function () {
                     fulfill();
                 });
             }).then(function () {

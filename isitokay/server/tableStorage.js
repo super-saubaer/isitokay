@@ -1,6 +1,6 @@
 let Promise = require('promise');
 let azure = require('azure-storage');
-const tableName = 'wierdQuestionData';
+const tableName = 'weirdQuestionData';
 const partitionKey = 'weirdQuestionData';
 
 /**
