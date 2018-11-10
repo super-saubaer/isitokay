@@ -1,0 +1,85 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    /* Margin bottom by footer height */
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    /* Set the fixed height of the footer here */
+    line-height: 60px;
+}
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-20 {
+    font-size: 20px;
+}
+
+.material-icons.md-22 {
+    font-size: 22px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icon-adaption {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.container-ready {
+    opacity: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.input-hidden {
+    /* width: 0px;
+    visibility: hidden;
+    border: 0; */
+
+    display: none;
+}
+
+/* Adaptive font for mobile devices */
+@media screen and (max-width: 600px) {
+    h1.adaptive-font {
+        font-size: 10vw;
+    }
+}
+
+#link-container {
+    visibility: hidden;
+}
+
+a:link {
+    color: rgb(254, 193, 7);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: rgb(254, 193, 7);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.question-data {
+    display: none;
+}

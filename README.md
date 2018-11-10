@@ -1,8 +1,5 @@
-# isitokay
+# isitokay / weirdquestion / whatstheanswer
 Azure Function providing Question &amp; Answer
-
-
-
 
 ## How it (shoud) work
 

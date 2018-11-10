@@ -1,39 +1,43 @@
-let fs = require('fs');
-let mime = require('mime-types');
+/**
+ * WEIRDQUESTION.IO
+ * Part of Code is inspired by: https://mystaticsite.azurewebsites.net/
+ */
+
+let generate = require('./server/generate.js');
+let answer = require('./server/answer.js');
+let serverStaticFile = require('./server/serveFile.js');
 
 module.exports = function (context, req) {
-    let file = 'index.html';
-
-    if (req.query.file) {
-        context.log(req.query.file);
+    // ?generate
+    if (req.query.generate) {
+        context.log('Trying to serve Generate Request');
+        generate.generateAnswerLink(context, decodeURI(req.query.generate)).then(function() {
+            endFunction(context);
+        });
+    } else if (req.query.question) { // ?question
+        context.log('Trying to serve answer');
+        answer.generateAnswerPage(context, req.query.question).then(function() {
+            endFunction(context);
+        });
+    } else if (req.query.file) { // ?file
+        context.log('Trying to serve File');
         file = req.query.file;
+        serverStaticFile.serveStaticFile(context, file).then(function() {
+            endFunction(context);
+        });
+    } else { // Comming in at root
+        context.log('Trying to serve Question');
+        serverStaticFile.serveStaticFile(context, 'question.html').then(function() {
+            endFunction(context);
+        });
     }
-
-    file = file.replace(/\//g, '\\');
-
-    fs.readFile(__dirname + '\\content\\' + file, function (err, data) {
-        context.log('GET ' + __dirname + '\\content\\' + file);
-
-        if (!err) {
-            let contentType = mime.lookup(file);
-            
-            context.res = {
-                status: 200,
-                body: data,
-                isRaw: true,
-                headers: {
-                    'Content-Type': contentType,
-                },
-            };
-        } else {
-            context.log('Error: ' + err);
-
-            context.res = {
-                status: 404,
-                body: 'Not Found.',
-                headers: {},
-            };
-        }
-        context.done();
-    });
 };
+
+/**
+ * Function that ends Azure Function
+ * @param {*} context - Azure Function Context
+ */
+function endFunction(context) {
+    context.log('Ending Function');
+    context.done();
+}
