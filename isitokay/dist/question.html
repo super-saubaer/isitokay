@@ -8,7 +8,7 @@
     <!-- Google Material Design Icon Font -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- weirdquestion.io bundle -->
-    <script src="?file=/weirdquestion.bundle.js"></script>
+    <script src="?file=/question-bundle.js"></script>
     <title>weirdquestion.io</title>
 </head>
 
@@ -31,8 +31,9 @@
                 <label for="form-answer">My Answer(s)</label>
                 <div id="answer-template">
                     <div class="input-group">
-                        <input id="form-answer" type="text" class="form-control form-answer form-user-input" placeholder="No. But Spritz Sélect at anytime!"
-                            aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <input id="form-answer" type="text" class="form-control form-answer form-user-input"
+                            placeholder="No. But Spritz Sélect at anytime!" aria-label="Recipient's username"
+                            aria-describedby="basic-addon2">
                         <div id="button-group" class="input-group-append clockpicker" data-placement="left" data-align="bottom"
                             data-autoclose="true" data-donetext="set time">
                             <input id="input-time" type="text" class="form-control input-hidden" value="00:00">
@@ -58,17 +59,19 @@
             <button id="generate-button" class="btn btn-warning text-dark" type="button">Generate Link!</button>
 
             <div id="link-container" class="input-group">
-                    <input id="link-text" type="text" class="form-control form-group text-link">
-                    <div class="input-group-append">
-                        <button id="link-button" class="btn btn-warning text-dark" type="button">Open Link!</button>
-                    </div>
+                <input id="link-text" type="text" class="form-control form-group text-link">
+                <div class="input-group-append">
+                    <button id="link-button" class="btn btn-warning text-dark" type="button">Open Link!</button>
+                </div>
             </div>
         </form>
     </div>
 
     <footer class="footer bg-dark">
         <div class="container">
-            <span class="text-warning">Here is my sticker footer content. Yay.</span>
+            <span class="text-warning">
+                <a href="http://192.168.178.50:7071/api/isitokay">weirdquestion.io</a>
+            </span>
         </div>
     </footer>
 </body>

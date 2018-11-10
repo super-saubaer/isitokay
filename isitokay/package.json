@@ -1,6 +1,6 @@
 {
   "name": "isitokay",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "is it really okay?",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,7 @@
     "css-loader": "^1.0.0",
     "fs": "0.0.1-security",
     "jquery": "^3.3.1",
+    "jsdom": "^13.0.0",
     "mime-types": "^2.1.20",
     "popper.js": "^1.14.4",
     "promise": "^8.0.2",

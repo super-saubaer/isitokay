@@ -225,13 +225,14 @@ $(document).ready(function () {
                 // Pushing answer object to data model
                 dataModel.answers.push(answer);
             });
+            let questionDataString = JSON.stringify(dataModel);
+            console.log('Sending data: ' + questionDataString);
+            console.log('data length: ' + questionDataString.length);
+            let url = encodeURI(window.location + '?generate=' + questionDataString);
 
-            console.log('Sending data: ' + JSON.stringify(dataModel));
-            let url = window.location + '?generate';
-
-            $.post(url, JSON.stringify(dataModel), function (result) {
+            $.get(url, function (result) {
                 if (result) {
-                    let link = decodeURIComponent(result);
+                    let link = window.location + decodeURIComponent(result);
                     // setting result link in text element
                     $('#link-text').val(link);
                     // Setting href for button

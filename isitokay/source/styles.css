@@ -67,3 +67,19 @@ body {
 #link-container {
     visibility: hidden;
 }
+
+a:link {
+    color: rgb(254, 193, 7);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: rgb(254, 193, 7);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.question-data {
+    display: none;
+}

@@ -1,26 +1,22 @@
 /**
  * WEIRDQUESTION.IO
- * Part of Code ist inspired by: https://mystaticsite.azurewebsites.net/
+ * Part of Code is inspired by: https://mystaticsite.azurewebsites.net/
  */
 
 let generate = require('./server/generate.js');
 let answer = require('./server/answer.js');
-let serverStaticFile = require('./server/serveStaticFile.js');
-
+let serverStaticFile = require('./server/serveFile.js');
 
 module.exports = function (context, req) {
-    // Deciding which query to serve
-
     // ?generate
     if (req.query.generate) {
         context.log('Trying to serve Generate Request');
-        generate.generateAnswerLink(context, req.body).then(function() {
+        generate.generateAnswerLink(context, decodeURI(req.query.generate)).then(function() {
             endFunction(context);
         });
     } else if (req.query.question) { // ?question
         context.log('Trying to serve answer');
-        file = 'answer.html';
-        serverStaticFile.serveStaticFile(context, file).then(function() {
+        answer.generateAnswerPage(context, req.query.question).then(function() {
             endFunction(context);
         });
     } else if (req.query.file) { // ?file
