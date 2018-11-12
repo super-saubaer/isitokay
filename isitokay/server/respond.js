@@ -24,7 +24,6 @@ exports.respondWithData = function (context, data) {
     });
 };
 
-
 /**
  * Function that returns Error to client
  * @param {*} context Azure Function Context
@@ -43,6 +42,28 @@ exports.respondWithError = function (context) {
             },
         };
         context.log('Badly served! :(');
+        fulfill();
+    });
+};
+
+/**
+ * Function that returns keep alive data to trigger function
+ * @param {*} context Azure Function Context
+ * @return {Promise} Promise
+ */
+exports.respondWithKeepAlive = function (context) {
+    return new Promise(function (fulfill, reject) {
+        let keepAliveResponse = 'Dancing all night long!';
+        let contentType = mime.lookup(keepAliveResponse);
+        context.res = {
+            status: 200,
+            body: keepAliveResponse,
+            isRaw: true,
+            headers: {
+                'Content-Type': contentType,
+            },
+        };
+        context.log('Keep Alively served! :)');
         fulfill();
     });
 };

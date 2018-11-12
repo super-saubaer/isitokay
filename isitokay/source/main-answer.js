@@ -10,7 +10,7 @@ $(document).ready(function () {
     let titleUpperText = questionData.question;
     let titleLowerText = selectAnswer(questionData);
 
-    const speed = 100; /* The speed/duration of the effect in milliseconds */
+    const speed = 80; /* The speed/duration of the effect in milliseconds */
 
     // Starting Typewriter
     typeTitles('title-upper', titleUpperText, 0);
