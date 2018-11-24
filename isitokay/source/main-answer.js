@@ -65,10 +65,14 @@ $(document).ready(function () {
                 // Setting Start Time
                 timeRangeStart.setHours(timesStart[0]);
                 timeRangeStart.setMinutes(timesStart[1]);
+                timeRangeStart.setSeconds(0);
+                timeRangeStart.setMilliseconds(0);
 
                 // Setting End Time
                 timeRangeEnd.setHours(timesEnd[0]);
                 timeRangeEnd.setMinutes(timesEnd[1]);
+                timeRangeEnd.setSeconds(0);
+                timeRangeEnd.setMilliseconds(0);
 
                 // Checking dates range
                 if (timeRangeStart.getTime() >= timeRangeEnd.getTime()) {
@@ -78,29 +82,67 @@ $(document).ready(function () {
                 // current time fitting in timerange?
                 if (timeRangeStart.getTime() <= timeNow.getTime() && timeNow.getTime() <= timeRangeEnd.getTime()) {
                     // Time fitting
-                    answersWithRighTime.push(questionData.answers[i].text);
+                    answersWithRighTime.push({
+                        text: questionData.answers[i].text,
+                    });
                 } else {
                     // Time not fitting
-                    answersWithWrongTime.push(questionData.answers[i].text);
+                    answersWithWrongTime.push({
+                        text: questionData.answers[i].text,
+                        startTime: timeRangeStart.getTime(),
+                    });
                 }
             } else {
                 // No time at all
-                answersWithNoTime.push(questionData.answers[i].text);
+                answersWithNoTime.push({
+                    text: questionData.answers[i].text,
+                });
             }
         }
 
         if (answersWithRighTime.length > 0) {
             // First answer with fitting times
             let randomNumber = getRandomNumber(answersWithRighTime.length);
-            answerText = answersWithRighTime[randomNumber];
+            answerText = answersWithRighTime[randomNumber].text;
         } else if (answersWithNoTime.length > 0) {
             // then answer with no times times
             let randomNumber = getRandomNumber(answersWithNoTime.length);
-            answerText = answersWithNoTime[randomNumber];
+            answerText = answersWithNoTime[randomNumber].text;
         } else if (answersWithWrongTime.length > 0) {
             // if not fitting and no no time answers, answer with wrong time
             let randomNumber = getRandomNumber(answersWithWrongTime.length);
-            answerText = answersWithWrongTime[randomNumber];
+            answerText = answersWithWrongTime[randomNumber].text;
+        }
+
+        // Checking next timestamps for automatic reload
+        if (answersWithWrongTime.length > 0) {
+            // Preparing next Trigger TIme
+            let nextTriggerTime = 0;
+            for (let i = 0; i < answersWithWrongTime.length; i++) {
+                // Only accepting timestamps that are in the future
+                if ((answersWithWrongTime[i].startTime - timeNow) < 0) {
+                    // Start Time already over. Adding another 24 hours to timestamp to reload page on next interval
+                    answersWithWrongTime[i].startTime = answersWithWrongTime[i].startTime + 86400000;
+                }
+
+                if (!nextTriggerTime) {
+                    // Setting first timestamp
+                    nextTriggerTime = answersWithWrongTime[i].startTime;
+                } else {
+                    if (answersWithWrongTime[i].startTime < nextTriggerTime) {
+                        // Setting timestampf that is even closer
+                        nextTriggerTime = answersWithWrongTime[i].startTime;
+                    }
+                }
+            }
+            let timeDifference = nextTriggerTime - timeNow;
+            if (nextTriggerTime && timeDifference > 0) {
+                // Setting Timer that reloads page on next answer
+                setTimeout(function () {
+                    // Reloadingpage
+                    location.reload();
+                }, timeDifference);
+            }
         }
         return answerText;
     }

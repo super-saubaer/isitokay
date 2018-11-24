@@ -27,7 +27,7 @@ module.exports = function (context, req) {
             endFunction(context);
         });
     } else if (req.query.keepalive) { // ?file
-        context.log('Trying to keep alive');
+        // context.log('Trying to keep alive');
         respond.respondWithKeepAlive(context).then(function () {
             endFunction(context);
         });
@@ -44,6 +44,6 @@ module.exports = function (context, req) {
  * @param {*} context - Azure Function Context
  */
 function endFunction(context) {
-    context.log('Ending Function');
+    // context.log('Ending Function');
     context.done();
 }
