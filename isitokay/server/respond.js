@@ -63,7 +63,7 @@ exports.respondWithKeepAlive = function (context) {
                 'Content-Type': contentType,
             },
         };
-        context.log('Keep Alively served! :)');
+        // context.log('Keep Alively served! :)');
         fulfill();
     });
 };
