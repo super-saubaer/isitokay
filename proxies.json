@@ -1,0 +1,25 @@
+{
+    "proxies": {
+        "main": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "/"
+            },
+            "backendUri": "http://localhost:7071/api/isitokay/"
+        },
+        "favicon": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "/favicon.ico"
+            },
+            "backendUri": "http://localhost:7071/api/isitokay?favicon"
+        },
+        "question": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "{*question}"
+            },
+            "backendUri": "http://localhost:7071/api/isitokay?question={question}"
+        }
+    }
+}
