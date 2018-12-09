@@ -14,6 +14,13 @@
             },
             "backendUri": "https://localhost/api/isitokay?favicon"
         },
+        "keepalive": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "/keepalive"
+            },
+            "backendUri": "https://localhost/api/isitokay?keepalive"
+        },
         "question": {
             "matchCondition": {
                 "methods": [ "GET" ],
