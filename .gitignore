@@ -2,4 +2,5 @@
 local.settings.json
 isitokay/package-lock.json
 isitokay/node_modules
+isitokay/proxies.local.json
 .vscode/

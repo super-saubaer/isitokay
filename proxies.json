@@ -5,21 +5,21 @@
                 "methods": [ "GET" ],
                 "route": "/"
             },
-            "backendUri": "http://localhost:7071/api/isitokay/"
+            "backendUri": "https://weirdquestion.io/api/isitokay/"
         },
         "favicon": {
             "matchCondition": {
                 "methods": [ "GET" ],
                 "route": "/favicon.ico"
             },
-            "backendUri": "http://localhost:7071/api/isitokay?favicon"
+            "backendUri": "https://weirdquestion.io/api/isitokay?favicon"
         },
         "question": {
             "matchCondition": {
                 "methods": [ "GET" ],
                 "route": "{*question}"
             },
-            "backendUri": "http://localhost:7071/api/isitokay?question={question}"
+            "backendUri": "https://weirdquestion.io/api/isitokay?question={question}"
         }
     }
 }
