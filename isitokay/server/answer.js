@@ -1,6 +1,7 @@
 let Promise = require('promise');
 let serverStaticFile = require('./serveFile.js');
 let tableStorage = require('./tableStorage.js');
+let respond = require('./respond.js');
 
 /**
  * Function that stores client Data on Table Storage and generates Answer Link
@@ -11,6 +12,7 @@ let tableStorage = require('./tableStorage.js');
 exports.generateAnswerPage = function (context, question) {
     return new Promise(function (fulfill, reject) {
         try {
+            context.log(question);
             tableStorage.getDataFromTable(context, question).then(function (data) {
                 // Everything defined?
                 if (!data || !data._) {

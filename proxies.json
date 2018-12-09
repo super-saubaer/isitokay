@@ -1,0 +1,25 @@
+{
+    "proxies": {
+        "main": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "/"
+            },
+            "backendUri": "https://weirdquestion.io/api/isitokay/"
+        },
+        "favicon": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "/favicon.ico"
+            },
+            "backendUri": "https://weirdquestion.io/api/isitokay?favicon"
+        },
+        "question": {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "{*question}"
+            },
+            "backendUri": "https://weirdquestion.io/api/isitokay?question={question}"
+        }
+    }
+}

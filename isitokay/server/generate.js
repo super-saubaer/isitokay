@@ -2,7 +2,7 @@ let Promise = require('promise');
 let randomstring = require('randomstring');
 let respond = require('./respond.js');
 let tableStorage = require('./tableStorage.js');
-const query = '?question=';
+// const query = '/';
 
 /**
  * Function that stores client Data on Table Storage and generates Answer Link
@@ -14,6 +14,7 @@ exports.generateAnswerLink = function (context, clientData) {
     return new Promise(function (fulfill, reject) {
         try {
             context.log('trying to generate answer link');
+            context.log(clientData);
 
             let rowKey = randomstring.generate({
                 length: 12,
@@ -22,7 +23,7 @@ exports.generateAnswerLink = function (context, clientData) {
 
             tableStorage.storeDataOnTable(context, rowKey, clientData).then(function (data) {
                 // Responding with Link to rowKey
-                respond.respondWithData(context, encodeURIComponent(query + rowKey)).then(function () {
+                respond.respondWithData(context, encodeURIComponent(rowKey)).then(function () {
                     fulfill();
                 });
             }).then(function () {

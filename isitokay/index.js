@@ -9,14 +9,22 @@ let serverStaticFile = require('./server/serveFile.js');
 let respond = require('./server/respond.js');
 
 module.exports = function (context, req) {
+    // if (context.bindingData.question) {
+    //     context.log(hallo);
+
+    // }
+
     // ?generate
     if (req.query.generate) {
         context.log('Trying to serve Generate Request');
-        generate.generateAnswerLink(context, decodeURI(req.query.generate)).then(function () {
+        context.log(req.query.generate);
+        context.log(req);
+        generate.generateAnswerLink(context, req.query.generate).then(function () {
             endFunction(context);
         });
-    } else if (req.query.question) { // ?question
+    } else if (req.query.question) { // /questionId
         context.log('Trying to serve answer');
+        context.log(req.query.question);
         answer.generateAnswerPage(context, req.query.question).then(function () {
             endFunction(context);
         });
@@ -29,6 +37,10 @@ module.exports = function (context, req) {
     } else if (req.query.keepalive) { // ?file
         // context.log('Trying to keep alive');
         respond.respondWithKeepAlive(context).then(function () {
+            endFunction(context);
+        });
+    } else if (req.query.favicon) {
+        respond.respondWithError(context).then(function () {
             endFunction(context);
         });
     } else { // Comming in at root

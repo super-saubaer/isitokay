@@ -4,6 +4,8 @@
 let $ = require('jquery');
 
 $(document).ready(function () {
+    // Initing all Tooltips first
+    handleTooltipps();
     // questionChanged flag
     let questionChanged = false;
     // Typewriter
@@ -66,24 +68,24 @@ $(document).ready(function () {
         // clearing time
         $(clonedAnswerTemplate).find('.badge').text('');
 
+        // Changing Tooltip Text
+        $(clonedAnswerTemplate).find('#button-add').attr('data-original-title', 'Remove this Answer');
+
         // Changing Add Button to Remove Button
         $(clonedAnswerTemplate).find('#button-add').find('i').text('remove');
         $(clonedAnswerTemplate).find('#button-add').attr('id', 'button-remove');
 
-        // // Adding Remove Button
-        // let removeButtonElement = $(clonedAnswerTemplate).find('#button-add').clone();
-        // // Setting ID and Remove Icon
-        // $(removeButtonElement).attr('id', 'button-remove');
-        // $(removeButtonElement).find('i').text('remove');
-        // // Inserting bevor add button
-        // $($(clonedAnswerTemplate).find('#button-add')).before(removeButtonElement);
 
         // Inserting Complete Answer Element into DOM
         $(clonedAnswerTemplate).appendTo('#answer-container');
+        // refreshing tooltipps
+        handleTooltipps();
     });
 
     // Listening on Remove Button Click
     $(document).on('click', '#button-remove', function () {
+        // handling tooltips
+        handleTooltipps();
         // new question?
         checkQuestionChanged();
         // Getting clostet parent Answer Template
@@ -94,6 +96,8 @@ $(document).ready(function () {
 
     // Listening on time button
     $(document).on('click', '#button-time', function () {
+        // handling Tooltips
+        handleTooltipps();
         // new question?
         checkQuestionChanged();
         // Getting Clockpicker element
@@ -125,7 +129,9 @@ $(document).ready(function () {
 
             // Showing ClockPicker for to-time
             if (setToTime) {
-                clockPicker.clockpicker('show');
+                // TODO: Setting right doneText
+                $(this).closest('.clockpicker').attr('data-donetext', 'Set Done Time');
+                $(this).closest('.clockpicker').clockpicker('show');
             }
         });
         clockPicker.clockpicker('show');
@@ -228,7 +234,7 @@ $(document).ready(function () {
             let questionDataString = JSON.stringify(dataModel);
             console.log('Sending data: ' + questionDataString);
             console.log('data length: ' + questionDataString.length);
-            let url = encodeURI(window.location + '?generate=' + questionDataString);
+            let url = window.location + '?generate=' + encodeURIComponent(questionDataString);
 
             $.get(url, function (result) {
                 if (result) {
@@ -261,5 +267,15 @@ $(document).ready(function () {
             // toggling questionChanged flag
             questionChanged = false;
         }
+    }
+
+    /**
+     * Function that takes care of all tooltipps
+     */
+    function handleTooltipps() {
+        // Hiding all tooltips
+        $('[data-toggle="tooltip"]').tooltip('hide');
+        // initing all tooltips
+        $('[data-toggle="tooltip"]').tooltip();
     }
 });
