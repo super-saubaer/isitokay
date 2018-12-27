@@ -2,8 +2,16 @@
  * Simple javascript to read Question & Answer and send them to the backend...
  */
 let $ = require('jquery');
+let Picker = require('../node_modules/pickerjs/dist/picker.common.js');
 
 $(document).ready(function () {
+    // Setting Picker Options
+    Picker.setDefaults( {
+        format: 'HH:mm',
+        controls: true,
+        headers: true,
+    });
+
     // Initing all Tooltips first
     handleTooltipps();
     // questionChanged flag
@@ -100,41 +108,73 @@ $(document).ready(function () {
         handleTooltipps();
         // new question?
         checkQuestionChanged();
-        // Getting Clockpicker element
-        let clockPicker = $(this).closest('.clockpicker');
-        // Removing all eventListeners first -> Necesarry if user wants to reset time
-        $(clockPicker).find('input').off();
-        // clearing Badge Value -> Necesarry if user wants to reset time
-        $(this).find('.badge').text('');
 
-        // Initializing & Listening on input element
-        clockPicker.clockpicker().find('input').change(function () {
-            // Getting current Badge Value
-            let currentBadgeValue = $(this).closest('.clockpicker').find('.badge').text();
-            let newBadgeValue = '';
-            // Flag indicating if second clockPicker needs to be shown
-            let setToTime = false;
-            // Flag indicating if ClockPicker event listeners should be removed.
-            if (!currentBadgeValue) {
-                // Setting from-time
-                newBadgeValue = this.value + '-';
-                setToTime = true;
-            } else {
-                // Setting to-time
-                newBadgeValue = currentBadgeValue + this.value;
-            }
+        // Getting Badge Element
+        let badgeElement = $(this).find('.badge');
+        // Setting Flags
+        let startTimeSet = false;
+        let endTimeSet = false;
 
-            // Setting time value in badge
-            $(this).closest('.clockpicker').find('.badge').text(newBadgeValue);
+        // Getting Timer Elements & Removing all Event Listeners
+        let timeElementStart = $(this).find('#time-picker-start');
+        timeElementStart.off();
+        let timeElementEnd = $(this).find('#time-picker-end');
+        timeElementEnd.off();
 
-            // Showing ClockPicker for to-time
-            if (setToTime) {
-                // TODO: Setting right doneText
-                $(this).closest('.clockpicker').attr('data-donetext', 'Set Done Time');
-                $(this).closest('.clockpicker').clockpicker('show');
-            }
+        // Defining Start Time Picker
+        let pickerStart = new Picker(timeElementStart[0], {
+            text: {
+                title: 'Select a Start Time',
+            },
+            hidden: function () {
+                // Destroy on hidden callback
+                pickerStart.destroy();
+                if (!startTimeSet) {
+                    // On cancel during set time
+                    // Clearing badge
+                    badgeElement.text('');
+                    // Destroying End Time
+                    pickerEnd.destroy();
+                }
+            },
         });
-        clockPicker.clockpicker('show');
+
+        // Defining End Time Picker
+        let pickerEnd = new Picker(timeElementEnd[0], {
+            text: {
+                title: 'Select an End Time',
+            },
+            hidden: function () {
+                // Destroy on hidden callback
+                pickerEnd.destroy();
+                if (!endTimeSet) {
+                    // On Cancel during set time
+                    // Clearing Badge
+                    badgeElement.text('');
+                }
+            },
+        });
+
+        // Listening on Start Time Change
+        timeElementStart.change(function() {
+            // Setting Start Time
+            let startTime = this.value;
+            badgeElement.text(startTime);
+            startTimeSet = true;
+            // Showing End Time Picker
+            pickerEnd.show();
+        });
+
+        // Listening on End Time Change
+        timeElementEnd.change(function() {
+            // setting End Time
+            let endTime = badgeElement.text() + '-' + this.value;
+            badgeElement.text(endTime);
+            endTimeSet = true;
+        });
+
+        // Showing Start Time Picker
+        pickerStart.show();
     });
 
     // Listening on Link-Button
@@ -233,7 +273,6 @@ $(document).ready(function () {
             });
             let questionDataString = JSON.stringify(dataModel);
             console.log('Sending data: ' + questionDataString);
-            console.log('data length: ' + questionDataString.length);
             let url = window.location + '?generate=' + encodeURIComponent(questionDataString);
 
             $.get(url, function (result) {

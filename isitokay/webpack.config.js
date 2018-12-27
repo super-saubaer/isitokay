@@ -3,11 +3,11 @@ const path = require('path');
 module.exports = {
     entry: {
         question: [
-            './source/popper.js',
+            './node_modules/popper.js/dist/popper.js',
             './source/bootstrap.js',
             './source/bootstrap.css',
-            './source/clockpicker-bootstrap4.css',
-            './source/clockpicker-bootstrap4.js',
+            './source/picker.css',
+            // './source/picker.js',
             './source/styles.css',
             './source/main-question.js',
         ],
