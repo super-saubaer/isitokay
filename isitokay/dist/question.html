@@ -33,11 +33,11 @@
                     <div class="input-group">
                         <input id="form-answer" type="text" class="form-control form-answer form-user-input"
                             placeholder="No. But Spritz Sélect at anytime!" aria-describedby="basic-addon2">
-                        <div id="button-group" class="input-group-append clockpicker" data-placement="left" data-align="bottom"
-                            data-autoclose="false" data-donetext="Set Start Time">
-                            <input id="input-time" type="text" class="form-control input-hidden" value="00:00">
+                        <div id="button-group" class="input-group-append">
                             <button id="button-time" class="btn btn-outline-warning text-dark material-icon-adaption button-time"
-                                type="button" data-toggle="tooltip" data-placement="top" title="Set Timerange for this Answer">
+                            type="button" data-toggle="tooltip" data-placement="top" title="Set Timerange for this Answer">
+                                <input type="text" class="input-hidden" id="time-picker-start">
+                                <input type="text" class="input-hidden" id="time-picker-end">
                                 <i class="material-icons">access_time</i>
                                 <span class="badge time-option"></span>
                             </button>
